@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import axios from 'axios'
 
-
 createApp({
     data() {
         return {
