@@ -7,47 +7,8 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div id="app" class="wrapper" v-cloak>
-      <div class="students">
-        <input type="text" placeholder="Search:" v-model="searchValue">
-        <hr>
-        <div class="studentData" v-for="(student, index) in filterStudents()">
-          <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.fullName }}</p>
-          <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.groupTitle }}</p>
-          <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.birthday }}</p>
-          <input type="checkbox" v-model="student.isPass">
-          <button @click="removeStudent(index)">Delete</button>
-        </div>
-        <p v-if="students.length <= 0">Students doesn't exists</p>
+    <div id="app" class="wrapper">
 
-        <hr>
-
-        <div class="addStudentBlock">
-          <input type="text" placeholder="Enter full name:" v-model="newStudentFullName">
-          <select v-model="newStudentGroupTitle">
-            <option value="">Choose group:</option>
-            <option value="RPZ 19 1.9">RPZ 19 1.9</option>
-            <option value="RPZ 19 2.9">RPZ 19 2.9</option>
-          </select>
-          <input type="date" max="2023-01-10" v-model="newStudentBirthday">
-          <input type="checkbox" v-model="newStudentIsPass">
-          <button @click="addStudent()">Add</button>
-        </div>
-        <p>{{ errorMessage }}</p>
-
-        <hr>
-
-        <div class="colorChangingBlock" :style="blockColor === 'red' ? 'background-color: red' : 'background-color: green'" @mouseover="blockOnMouseOver()" @mouseout="blockOnMouseOut()"></div>
-
-        <!--<hr>-->
-        <!---->
-        <!--<span style='font-size:25px;'>EnterAge:</span>-->
-        <!--<input v-model.number='age' type='number'>-->
-        <!--<span style='font-size:25px;'>EnterMessage:</span>-->
-        <!--<input v-model.lazy='msg'>-->
-        <!--<span style='font-size:25px;'>EnterMessage : </span>-->
-        <!--<input v-model.trim='message'>-->
-      </div>
     </div>
 
     <script type="text/javascript" src="main.js"></script>
