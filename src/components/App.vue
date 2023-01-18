@@ -2,7 +2,7 @@
   <div class="students">
     <input type="text" placeholder="Search:" v-model="searchValue">
     <hr>
-    <div class="studentData" v-for="student in filterStudents()">
+    <div class="studentData" v-for="student in filterStudents()" v-bind:key="student._id">
       <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.name }}</p>
       <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.group}}</p>
       <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.mark}}</p>
@@ -24,7 +24,6 @@
       <input type="checkbox" v-model="students.isDonePr">
       <button @click="addStudent()">Add</button>
     </div>
-    <p>{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -36,7 +35,6 @@
       return {
         students: [],
         searchValue: '',
-        errorMessage: '',
         student: {
           '_id': '',
           'name': '',
@@ -48,10 +46,11 @@
         },
       }
     },
-    mounted: function () {
-      axios.get('http://34.82.81.113:3000/students').then((response) => {
-        this.students = response.data
-      })
+    mounted () {
+      axios.get("http://34.82.81.113:3000/students")
+          .then(data => {
+            this.students =  data.data
+          })
     },
     methods: {
       deleteStudent(id) {
