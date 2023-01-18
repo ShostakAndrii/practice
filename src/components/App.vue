@@ -14,6 +14,7 @@
     <hr>
 
     <div class="addStudentBlock">
+      <input type="text" placeholder="Enter id:" v-model="student._id">
       <input type="text" placeholder="Enter full name:" v-model="student.name">
       <select v-model="student.group">
         <option value="">Choose group:</option>
@@ -21,6 +22,7 @@
         <option value="RPZ 19 2.9">RPZ 19 2.9</option>
       </select>
       <input type="number" v-model="student.mark">
+      <input type="text" placeholder="Enter photo url:" v-model="student.photo">
       <input type="checkbox" v-model="student.isDonePr">
       <button @click="addStudent()">Add</button>
     </div>
@@ -36,7 +38,7 @@
         students: [],
         searchValue: '',
         student: {
-          '_id': 't45nytf845nyy45ff4',
+          '_id': '',
           'name': '',
           'group': '',
           'photo': '',
