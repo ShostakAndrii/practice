@@ -14,14 +14,14 @@
     <hr>
 
     <div class="addStudentBlock">
-      <input type="text" placeholder="Enter full name:" v-model="students.name">
-      <select v-model="students.group">
+      <input type="text" placeholder="Enter full name:" v-model="student.name">
+      <select v-model="student.group">
         <option value="">Choose group:</option>
         <option value="RPZ 19 1.9">RPZ 19 1.9</option>
         <option value="RPZ 19 2.9">RPZ 19 2.9</option>
       </select>
-      <input type="number" v-model="students.mark">
-      <input type="checkbox" v-model="students.isDonePr">
+      <input type="number" v-model="student.mark">
+      <input type="checkbox" v-model="student.isDonePr">
       <button @click="addStudent()">Add</button>
     </div>
   </div>
@@ -36,7 +36,7 @@
         students: [],
         searchValue: '',
         student: {
-          '_id': '',
+          '_id': 't45nytf845nyy45ff4',
           'name': '',
           'group': '',
           'photo': '',
@@ -46,10 +46,10 @@
         },
       }
     },
-    mounted () {
-      axios.get("http://34.82.81.113:3000/students")
+    mounted() {
+      axios.get('http://34.82.81.113:3000/students')
           .then(data => {
-            this.students =  data.data
+            this.students = data.data
           })
     },
     methods: {
@@ -65,7 +65,8 @@
         })
       },
       addStudent() {
-        axios.post("http://34.82.81.113:3000/students", this.student)
+        console.log(this.student)
+        axios.post('http://34.82.81.113:3000/students', this.student)
             .then(data => {
               console.log(data);
             })
