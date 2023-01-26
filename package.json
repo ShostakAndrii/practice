@@ -1,9 +1,10 @@
 {
-  "name": "1day_s",
+  "name": "3day_s",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development",
+    "dev": "webpack --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

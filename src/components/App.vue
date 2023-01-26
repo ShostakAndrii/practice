@@ -3,10 +3,20 @@
     <input type="text" placeholder="Search:" v-model="searchValue">
     <hr>
     <div class="studentData" v-for="student in filterStudents()" v-bind:key="student._id">
-      <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.name }}</p>
-      <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.group}}</p>
-      <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.mark}}</p>
-      <input type="checkbox" v-model="student.isDonePr">
+      <template v-if="student._id===editId">
+        <input type="text" v-model="student.name">
+        <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.group}}</p>
+        <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.mark}}</p>
+        <input type="checkbox" v-model="student.isDonePr">
+        <input type="button" @click="updateStudent(editId)" value="Update">
+      </template>
+      <template v-else>
+        <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.name }}</p>
+        <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.group}}</p>
+        <p :style="searchValue ? 'color: red' : 'color: black'">{{ student.mark}}</p>
+        <input type="checkbox" v-model="student.isDonePr">
+        <a href="#" @click.prevent="rplForm(student._id)">Update</a>
+      </template>
       <button @click="deleteStudent(student._id)">Delete</button>
     </div>
     <p v-if="students.length <= 0">Students doesn't exists</p>
@@ -46,12 +56,14 @@
           'isDonePr': false,
           '__v': 0
         },
+        editId: ''
       }
     },
     mounted() {
       axios.get('http://34.82.81.113:3000/students')
           .then(data => {
             this.students = data.data
+            console.log(this.students)
           })
     },
     methods: {
@@ -80,6 +92,24 @@
         this.student.mark = 0
         this.student.isDonePr = false
         this.student.__v = 0
+      },
+      updateStudent(_id) {
+        let foundStudent = this.students.find((element) => {
+          return element._id === _id
+        })
+
+        axios.put('http://34.82.81.113:3000/students'+_id, {
+          name: foundStudent.name,
+          group: foundStudent.group,
+          isDonePr: foundStudent.isDonePr,
+        }).then((response) => {
+          console.log(response.data)
+        })
+
+        this.editId = ''
+      },
+      rplForm(_id) {
+        this.editId = _id
       },
     },
   }
