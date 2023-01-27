@@ -24,7 +24,7 @@
     <hr>
 
     <div class="addStudentBlock">
-      <input type="text" placeholder="Enter id:" v-model="student._id">
+<!--      <input type="text" placeholder="Enter id:" v-model="student._id">-->
       <input type="text" placeholder="Enter full name:" v-model="student.name">
       <select v-model="student.group">
         <option value="">Choose group:</option>
@@ -48,7 +48,7 @@
         students: [],
         searchValue: '',
         student: {
-          '_id': '',
+          // '_id': '',
           'name': '',
           'group': '',
           'photo': '',
@@ -70,7 +70,7 @@
       deleteStudent(id) {
         axios.delete(`http://34.82.81.113:3000/students/${id}`)
             .then(data => {
-              console.log(data);
+              this.students.splice(this.students.indexOf(data.data), 1)
             })
       },
       filterStudents() {
@@ -80,9 +80,9 @@
       },
       addStudent() {
         console.log(this.student)
-        axios.post('http://34.82.81.113:3000/students', this.student)
+        axios.post('http://34.82.81.113:3000/students/', this.student)
             .then(data => {
-              console.log(data);
+              this.students.push(data.data)
             })
 
         this.student._id = ''
@@ -98,7 +98,7 @@
           return element._id === _id
         })
 
-        axios.put('http://34.82.81.113:3000/students'+_id, {
+        axios.put('http://34.82.81.113:3000/students/'+_id, {
           name: foundStudent.name,
           group: foundStudent.group,
           isDonePr: foundStudent.isDonePr,
